@@ -24,7 +24,7 @@ export function SingleProduct({ data }) {
         >
           <CardMedia
             component="img"
-            alt="green iguana"
+            alt="product"
             height="240"
             style={{ objectFit: "contain" }}
             image={data.image}
