@@ -8,14 +8,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useState, useEffect } from 'react';
 import { FormInputs } from '../../types/GlobalTypes';
 import { CustomTextField } from '../../utilities/CustomTextField';
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from 'axios';
 import { signInSchema } from '../../yupschema';
 export default function SignIn() {
-  const [inputValues, setInputValues] = useState<FormInputs>({ username: "", password: "" })
   const { handleSubmit, reset, control } = useForm<FormInputs>({
     defaultValues: {
       username: "",
@@ -23,44 +21,11 @@ export default function SignIn() {
     },
     resolver: yupResolver(signInSchema)
   });
-  const onSubmit = (data: FormInputs) => {
-    setInputValues({ ...inputValues, ...data })
+  const onSubmit = async (data: FormInputs) => {
+   const res =  await axios.post('https://fakestoreapi.com/auth/login',data)
+    localStorage.setItem('token',JSON.stringify(res.data.token))
     reset();
   };
-
-  // axios.post('https://fakestoreapi.com/auth/login',{
-  //     body:JSON.stringify({
-  //       username: "mor_2314",
-  //       password: "83r5^_"
-  //   }),
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     'Access-Control-Allow-Origin': '*',
-  //   },
-  //   })
-  //   console.log(data,'datas')
-
-  // }
-
-  const generateToken = async() => {
-    const token = await fetch('https://fakestoreapi.com/auth/login',{
-      body: JSON.stringify({
-        username: "mor_2314",
-        password: "83r5^_"
-      }),
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      }
-    })
-
-    console.log(token,'token')
-  }
-
-  useEffect(() => {
-    generateToken()
-  },[])
 
     return (
       <Container component="main" maxWidth="xs">

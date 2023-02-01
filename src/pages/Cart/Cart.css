@@ -79,6 +79,14 @@
   padding-right: 0.5rem;
   justify-self: right;
   font-weight: 700;
+  display: flex;
+  padding-left: 3rem;
+  align-items: center;
+}
+.clear-button {
+ vertical-align: middle;
+ color: red;
+
 }
 
 /* cart summary */

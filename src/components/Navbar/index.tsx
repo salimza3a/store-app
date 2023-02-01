@@ -1,18 +1,15 @@
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom';
 import { Badge, MenuItem } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { useSelector,useDispatch } from 'react-redux';
-import { getTotals } from '../../store/cartSlice';
-import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 export const Navbar =() => {
 
-  const {cartTotalQuantity} = useSelector((state) => state.cart)
-  const dispatch = useDispatch();
+  const {cartTotalQuantity} = useAppSelector((state) => state.cart)
+  const dispatch = useAppDispatch();
   
   return (
     <Box sx={{ flexGrow: 1 }}>

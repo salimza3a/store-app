@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import {
   addToCart,
   clearCart,
@@ -7,14 +6,19 @@ import {
   getTotals,
   removeFromCart,
 } from "../../store/cartSlice";
+
+
 import type { TypedUseSelectorHook } from 'react-redux'
+
 import "./Cart.css"
+import CloseIcon from '@mui/icons-material/Close';
 import { Link } from "react-router-dom";
-import { AppDispatch } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { Button } from "@mui/material";
 
 const Cart = () => {
-  const cart = useSelector((state) => state.cart);
-  const dispatch = useDispatch();
+  const cart = useAppSelector((state) => state.cart);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getTotals());
@@ -70,14 +74,8 @@ const Cart = () => {
               cart.cartItems.map((cartItem) => (
                 <div className="cart-item" key={cartItem.id}>
                   <div className="cart-product">
-                    <img src={cartItem.image} alt={cartItem.name} />
-                    <div>
-                      <h3>{cartItem.name}</h3>
-                      <p>{cartItem.desc}</p>
-                      <button onClick={() => handleRemoveFromCart(cartItem)}>
-                        Remove
-                      </button>
-                    </div>
+                    <img src={cartItem.image}  />
+                   
                   </div>
                   <div className="cart-product-price">${cartItem.price}</div>
                   <div className="cart-product-quantity">
@@ -87,9 +85,13 @@ const Cart = () => {
                     <div className="count">{cartItem.cartQuantity}</div>
                     <button onClick={() => handleAddToCart(cartItem)}>+</button>
                   </div>
-                  <div className="cart-product-total-price">
+                  <div className="cart-product-total-price ">
                     ${cartItem.price * cartItem.cartQuantity}
+                    <span className="clear-button" onClick={() => handleRemoveFromCart(cartItem)}>
+                      <CloseIcon sx={{marginLeft: '5px', fontSize: '2.3rem'}}/>
+                    </span>
                   </div>
+                 
                 </div>
               ))}
           </div>
@@ -103,7 +105,11 @@ const Cart = () => {
                 <span className="amount">${cart.cartTotalAmount}</span>
               </div>
               <p>Taxes and shipping calculated at checkout</p>
-              <Link to="/checkout">Check out</Link>
+              <Link to="/checkout">
+                <Button variant="outlined" href="#success-buttons">
+                Check out
+                </Button>
+              </Link>
               <div className="continue-shopping">
                 <Link to="/">
                   <svg
@@ -133,5 +139,3 @@ const Cart = () => {
 export default Cart;
 
 
-export const useAppDispatch: () => AppDispatch = useDispatch
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector

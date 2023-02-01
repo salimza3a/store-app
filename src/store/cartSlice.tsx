@@ -1,8 +1,22 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import type { RootState } from "../store";
 
-type CartState = {
-  cartItems: [],
+
+
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  image: string;
+  category: string;
+  rating: number;
+  quantity?: number;
+}
+
+interface CartState  {
+  cartItems: Product[],
   cartTotalQuantity: number
   cartTotalAmount: number
 }
@@ -79,7 +93,7 @@ const cartSlice = createSlice({
 
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
-    removeFromCart(state, action) {
+    removeFromCart(state, action: PayloadAction<{id: number}>) {
       state.cartItems.map((cartItem) => {
         if (cartItem.id === action.payload.id) {
           const nextCartItems = state.cartItems.filter(
@@ -96,10 +110,11 @@ const cartSlice = createSlice({
         return state;
       });
     },
-    getTotals(state, action) {
+    getTotals(state) {
       let { total, quantity } = state.cartItems.reduce(
         (cartTotal, cartItem) => {
           const { price, cartQuantity } = cartItem;
+          console.log(cartQuantity, 'cart item ')
           const itemTotal = price * cartQuantity;
 
           cartTotal.total += itemTotal;
@@ -116,7 +131,7 @@ const cartSlice = createSlice({
       state.cartTotalQuantity = quantity;
       state.cartTotalAmount = total;
     },
-    clearCart(state, action) {
+    clearCart(state) {
       state.cartItems = [];
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
       toast.error("Cart cleared", { position: "bottom-left" });

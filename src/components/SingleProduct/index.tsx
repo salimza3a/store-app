@@ -9,10 +9,10 @@ import { Grid } from '@mui/material';
 import { formatCurrency } from '../../utilities/FormatCurrency';
 import { Link } from 'react-router-dom';
 import { addToCart } from '../../store/cartSlice';
-import {useSelector, useDispatch} from 'react-redux'
+import { useAppDispatch } from '../../hooks/hooks';
 export  function SingleProduct({data}) {
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const handleAddToCart = (product) => {
     dispatch(addToCart(product))
   }
