@@ -19,6 +19,7 @@ const Home = () => {
     }
     return (<>
         <Container maxWidth="xl" sx={{marginTop: '6rem'}}>
+          
             <h2>category list</h2>
             {categoryNames.map(category => <Button onClick={handleButton} value={category} variant="outlined" key={category} sx={{ marginRight: 2 }}>{category}</Button>)}
 

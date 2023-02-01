@@ -6,14 +6,17 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { FormInputs } from '../../types/GlobalTypes';
 import { CustomTextField } from '../../utilities/CustomTextField';
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from 'axios';
 import { signInSchema } from '../../yupschema';
+import { toast } from 'react-toastify';
 export default function SignIn() {
+
+  
   const { handleSubmit, reset, control } = useForm<FormInputs>({
     defaultValues: {
       username: "",
@@ -21,9 +24,12 @@ export default function SignIn() {
     },
     resolver: yupResolver(signInSchema)
   });
+  const navigate = useNavigate()
   const onSubmit = async (data: FormInputs) => {
+    toast.success('Logged in successfully',{position: "top-right",autoClose: 1500 })
+    navigate('/cart')
    const res =  await axios.post('https://fakestoreapi.com/auth/login',data)
-    localStorage.setItem('token',JSON.stringify(res.data.token))
+   localStorage.setItem('token',JSON.stringify(res.data.token))
     reset();
   };
 

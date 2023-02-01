@@ -1,25 +1,29 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { Product } from '../types/GlobalTypes';
 
-type CartItemType = {
+type products = {
+    productId: number
+    quantity: number
+}
+
+type Cart = {
     id: number
-    category: string
-    description: string
-    image: string
-    title: string
-    amount: number
+    userId: number
+    data: Date
+    products: products[]
 }
 
 export const productsApi = createApi({
     reducerPath: 'productsApi',
     baseQuery: fetchBaseQuery({ baseUrl: 'https://fakestoreapi.com/' }),
     endpoints: (builder) => ({
-        getAllProducts: builder.query<CartItemType, null>({
+        getAllProducts: builder.query<Product, void>({
             query: () => "products"
         }),
-        getProductById: builder.query({
+        getProductById: builder.query<Cart,void>({
             query: (id) => `products/${id}`
         }),
-        filterProductsByCategory: builder.query({
+        filterProductsByCategory: builder.query<Product, void>({
             query: (categoryName) => `products/category/${categoryName}`
         })
     })

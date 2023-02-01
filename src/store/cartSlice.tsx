@@ -1,19 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import type { RootState } from "../store";
+import { Product } from "../types/GlobalTypes";
 
-
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  image: string;
-  category: string;
-  rating: number;
-  quantity?: number;
-}
 
 interface CartState  {
   cartItems: Product[],

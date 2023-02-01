@@ -8,7 +8,6 @@ import {
 } from "../../store/cartSlice";
 
 
-import type { TypedUseSelectorHook } from 'react-redux'
 
 import "./Cart.css"
 import CloseIcon from '@mui/icons-material/Close';
@@ -36,6 +35,8 @@ const Cart = () => {
   const handleClearCart = () => {
     dispatch(clearCart());
   };
+  const signInToken = localStorage.getItem('token')
+  console.log(signInToken,'sign in token')
   return (
     <div className="cart-container">
       <h2>Shopping Cart</h2>
@@ -87,7 +88,7 @@ const Cart = () => {
                   </div>
                   <div className="cart-product-total-price ">
                     ${cartItem.price * cartItem.cartQuantity}
-                    <span className="clear-button" onClick={() => handleRemoveFromCart(cartItem)}>
+                    <span className="clear-button" onClick={() => handleRemoveFromCart(cartItem) }>
                       <CloseIcon sx={{marginLeft: '5px', fontSize: '2.3rem'}}/>
                     </span>
                   </div>
@@ -105,11 +106,11 @@ const Cart = () => {
                 <span className="amount">${cart.cartTotalAmount}</span>
               </div>
               <p>Taxes and shipping calculated at checkout</p>
-              <Link to="/checkout">
-                <Button variant="outlined" href="#success-buttons">
+                <Button variant="outlined" disabled={signInToken ? false: true } href="#success-buttons">
+              <Link to="/checkout" style={{textDecoration: "none", color: "rebeccapurple", fontWeight: "500"}}>
                 Check out
-                </Button>
               </Link>
+                </Button>
               <div className="continue-shopping">
                 <Link to="/">
                   <svg

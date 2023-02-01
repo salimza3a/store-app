@@ -10,12 +10,13 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CustomTextField } from '../../utilities/CustomTextField';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormInputs } from '../../types/GlobalTypes';
 import { useForm } from 'react-hook-form';
 import { signUpSchema } from '../../yupschema';
+import { toast } from 'react-toastify';
 const theme = createTheme();
 
 export default function SignUp() {
@@ -28,8 +29,14 @@ export default function SignUp() {
     },
     resolver: yupResolver(signUpSchema)
   });
+  const navigate = useNavigate()
   const onSubmit = (data: FormInputs) => {
-    console.log(data);
+    
+    toast.success(`Registered successfully`, {
+      autoClose: 1550,
+    })
+    navigate('/signin')
+
     reset();
   };
 
