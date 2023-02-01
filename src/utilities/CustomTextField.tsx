@@ -5,12 +5,12 @@ import { useState } from "react";
 import { Controller } from "react-hook-form";
 
 type CustomTextFieldProps = {
-    label: string;
-    name: string;
-    control: any;
-    type: string;
-    placeholder: string;
-  };
+  label: string;
+  name: string;
+  control: any;
+  type: string;
+  placeholder: string;
+};
 export const CustomTextField = ({
   name,
   control,

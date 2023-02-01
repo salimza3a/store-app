@@ -3,15 +3,11 @@ import { toast } from "react-toastify";
 import type { RootState } from "../store";
 import { Product } from "../types/GlobalTypes";
 
-
-interface CartState  {
-  cartItems: Product[],
-  cartTotalQuantity: number
-  cartTotalAmount: number
+interface CartState {
+  cartItems: Product[];
+  cartTotalQuantity: number;
+  cartTotalAmount: number;
 }
-
-
-
 
 const initialState: CartState = {
   cartItems: [],
@@ -25,7 +21,10 @@ if (storedCartItems) {
     const parsedCartItems = JSON.parse(storedCartItems);
     initialState.cartItems = parsedCartItems;
     initialState.cartTotalQuantity = parsedCartItems.length;
-    initialState.cartTotalAmount = parsedCartItems.reduce((total: number, item) => total + item.price, 0);
+    initialState.cartTotalAmount = parsedCartItems.reduce(
+      (total: number, item) => total + item.price,
+      0
+    );
   } catch (error) {
     console.error(error);
   }
@@ -82,7 +81,7 @@ const cartSlice = createSlice({
 
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
-    removeFromCart(state, action: PayloadAction<{id: number}>) {
+    removeFromCart(state, action: PayloadAction<{ id: number }>) {
       state.cartItems.map((cartItem) => {
         if (cartItem.id === action.payload.id) {
           const nextCartItems = state.cartItems.filter(
@@ -103,7 +102,7 @@ const cartSlice = createSlice({
       let { total, quantity } = state.cartItems.reduce(
         (cartTotal, cartItem) => {
           const { price, cartQuantity } = cartItem;
-          console.log(cartQuantity, 'cart item ')
+          console.log(cartQuantity, "cart item ");
           const itemTotal = price * cartQuantity;
 
           cartTotal.total += itemTotal;

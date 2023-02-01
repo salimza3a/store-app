@@ -7,10 +7,8 @@ import {
   removeFromCart,
 } from "../../store/cartSlice";
 
-
-
-import "./Cart.css"
-import CloseIcon from '@mui/icons-material/Close';
+import "./Cart.css";
+import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { Button } from "@mui/material";
@@ -35,8 +33,8 @@ const Cart = () => {
   const handleClearCart = () => {
     dispatch(clearCart());
   };
-  const signInToken = localStorage.getItem('token')
-  console.log(signInToken,'sign in token')
+  const signInToken = localStorage.getItem("token");
+  console.log(signInToken, "sign in token");
   return (
     <div className="cart-container">
       <h2>Shopping Cart</h2>
@@ -75,8 +73,7 @@ const Cart = () => {
               cart.cartItems.map((cartItem) => (
                 <div className="cart-item" key={cartItem.id}>
                   <div className="cart-product">
-                    <img src={cartItem.image}  />
-                   
+                    <img src={cartItem.image} />
                   </div>
                   <div className="cart-product-price">${cartItem.price}</div>
                   <div className="cart-product-quantity">
@@ -88,11 +85,15 @@ const Cart = () => {
                   </div>
                   <div className="cart-product-total-price ">
                     ${cartItem.price * cartItem.cartQuantity}
-                    <span className="clear-button" onClick={() => handleRemoveFromCart(cartItem) }>
-                      <CloseIcon sx={{marginLeft: '5px', fontSize: '2.3rem'}}/>
+                    <span
+                      className="clear-button"
+                      onClick={() => handleRemoveFromCart(cartItem)}
+                    >
+                      <CloseIcon
+                        sx={{ marginLeft: "5px", fontSize: "2.3rem" }}
+                      />
                     </span>
                   </div>
-                 
                 </div>
               ))}
           </div>
@@ -106,11 +107,22 @@ const Cart = () => {
                 <span className="amount">${cart.cartTotalAmount}</span>
               </div>
               <p>Taxes and shipping calculated at checkout</p>
-                <Button variant="outlined" disabled={signInToken ? false: true } href="#success-buttons">
-              <Link to="/checkout" style={{textDecoration: "none", color: "rebeccapurple", fontWeight: "500"}}>
-                Check out
-              </Link>
-                </Button>
+              <Button
+                variant="outlined"
+                disabled={signInToken ? false : true}
+                href="#success-buttons"
+              >
+                <Link
+                  to="/checkout"
+                  style={{
+                    textDecoration: "none",
+                    color: "rebeccapurple",
+                    fontWeight: "500",
+                  }}
+                >
+                  Check out
+                </Link>
+              </Button>
               <div className="continue-shopping">
                 <Link to="/">
                   <svg
@@ -138,5 +150,3 @@ const Cart = () => {
 };
 
 export default Cart;
-
-
