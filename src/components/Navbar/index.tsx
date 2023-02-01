@@ -6,11 +6,12 @@ import { Link } from 'react-router-dom';
 import { Badge, MenuItem } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { getTotals } from '../../store/cartSlice';
 export const Navbar =() => {
 
   const {cartTotalQuantity} = useAppSelector((state) => state.cart)
   const dispatch = useAppDispatch();
-  
+  dispatch(getTotals())
   return (
     <Box sx={{ flexGrow: 1 }}>
          <AppBar
